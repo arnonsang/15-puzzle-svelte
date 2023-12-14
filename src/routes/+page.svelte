@@ -4,6 +4,7 @@
 	import Swal from 'sweetalert2';
 	import Navbar from '../lib/components/Navbar.svelte';
 	import Footer from '../lib/components/Footer.svelte';
+	import { onMount } from 'svelte';
 
 	//game variables
 	let moveCount = writable(0);
@@ -11,6 +12,7 @@
 	let isStarted = false;
 	let puzzle = [];
 	let currentWhiteIndex = 15;
+	let playerName = 'Guest';
 
 	//generate new puzzle array
 	const newPuzzle = new Array(16)
@@ -59,10 +61,43 @@
 				showConfirmButton: false,
 				timer: 1000,
 				toast: true,
-				position: 'bottom',
+				position: 'top-end',
 			});
 		}
 	};
+
+	onMount(() => {
+		Swal.fire({
+			title: 'Hello, Who are you?',
+			html: `Enter your name to start the game`,
+			input: 'text',
+			inputAttributes: {
+				autocapitalize: 'off'
+			},
+			showCancelButton: false,
+			confirmButtonText: 'Start!',
+			confirmButtonColor: '#4caf50',
+			allowEnterKey: false,
+			allowEscapeKey: false,
+			allowOutsideClick: false,
+			preConfirm: (name) => {
+				if (name) {
+					playerName = name;
+					Swal.fire({
+						title: 'Welcome!',
+						html: `Hello <b>${name}</b>!`,
+						icon: 'success',
+						showConfirmButton: false,
+						timer: 1000,
+						toast: true,
+						position: 'top-end',
+					});
+				} else {
+					Swal.showValidationMessage(`Please enter your name`);
+				}
+			}
+		});
+	});
 
 	const howToPlay = () => {
 		Swal.fire({
@@ -102,8 +137,8 @@
 					if (puzzle.every((item, index) => item.value === index + 1)) {
 						setTimeout(() => {
 							Swal.fire({
-								title: 'Congratulations!',
-								html: `You solved the puzzle in <b>${$time}</b> seconds and <b>${$moveCount}</b> moves!`,
+								title: `Congratulations, ${playerName}!`,
+								html: `You solved the puzzle in <b>${$moveCount}</b> moves and <b>${$time}</b> seconds!`,
 								imageUrl: 'https://i.gifer.com/8i79.gif',
 								confirmButtonText: 'Play again!',
 								confirmButtonColor: '#4caf50',
@@ -124,16 +159,19 @@
 </script>
 
 <div class="container min-h-screen min-w-full">
-	<Navbar {time} {moveCount} {isStarted} />
+	<Navbar {time} {moveCount} {isStarted} {playerName}/>
 	<main
-		class="container min-h-[90vh] max-w-md mx-auto flex flex-col justify-center items-center text-center"
+		class="container min-h-[90vh] max-w-md mx-auto flex flex-col justify-center items-center text-center pt-4 pb-12"
 	>
-		<div class="text-center m-12" id="title-section">
-			<h1 class="font-bold text-2xl">15 Puzzle Game</h1>
-			<div class="text-xl mt-4">
-				<p>Time : {$time}</p>
-				<p>Move : {$moveCount}</p>
-			</div>
+		<div class="text-center m-12 mb-2" id="title-section">
+			<h1 class="text-4xl font-bold">15 Puzzle Game</h1>
+			{#if isStarted}
+				<p class="text-sm mt-2">Move the tiles to arrange them in ascending order</p>
+				{:else}
+				<p class="text-xl">Made by <a href="https://www.iamickdev.com" class="link-primary hover:link-hover">Arnon Sang-ngern</a></p>
+				<img src="https://i.gifer.com/PYh.gif" alt="nyan cat running" class="h-72">
+			{/if}
+			
 		</div>
 
 		<div class="grid grid-cols-4 min-w-full" id="board-section">

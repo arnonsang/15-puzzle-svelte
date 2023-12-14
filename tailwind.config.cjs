@@ -10,6 +10,10 @@ const config = {
 		extend: {}
 	},
 
+	daisyui: {
+		themes: ["light", "dark", "cupcake"],
+	  },
+
 	plugins: [forms, typography, daisyui]
 };
 

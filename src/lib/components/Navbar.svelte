@@ -2,19 +2,29 @@
 	export let time;
 	export let moveCount;
 	export let isStarted;
+	export let playerName;
+
+	import ThemeSwitcher from './ThemeSwitcher.svelte';
 </script>
 
 {#key $time || $moveCount}
 	<div class="navbar bg-base-300">
 		<div class="navbar-start">
-			<button class="btn btn-ghost text-xl"
+			<button class="btn btn-ghost text-2xl"
 				>{isStarted
-					? `${$moveCount} ${$moveCount > 1 ? 'moves' : 'move'}`
-					: '15 Puzzle Game'}</button
+					? `${$moveCount > 1 ? $moveCount + ' moves' : $moveCount + ' move'}`
+					: `Welcome, ${playerName}!`}</button
 			>
 		</div>
+
 		<div class="navbar-end">
-			<button class="btn btn-ghost text-xl">{isStarted ? `${$time > 1 ? $time + ' second' : $time + " seconds"}` : ``}</button>
+			{#if isStarted}
+			<button class="btn btn-ghost text-2xl"
+			>{`${$time > 1 ? $time + ' second' : $time + ' seconds'}`}</button
+		>
+			{:else}
+			<ThemeSwitcher />
+			{/if}
 		</div>
 	</div>
 {/key}
