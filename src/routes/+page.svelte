@@ -24,9 +24,22 @@
 	//game start
 	const startGame = () => {
 		if (isStarted) {
-			 if(confirm("Are you sure you want to restart?")){
-			     window.location.reload();
-			 }
+			Swal.fire({
+				title: 'Are you sure?',
+				text: 'You will lose your progress!',
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#4caf50',
+				cancelButtonColor: '#d33',
+				confirmButtonText: 'Yes, restart!',
+				allowEnterKey: false,
+				allowEscapeKey: false,
+				allowOutsideClick: false
+			}).then((result) => {
+				if (result.isConfirmed) {
+					window.location.reload();
+				}
+			});
 			
 		} else {
 			puzzle = newPuzzle;
@@ -39,8 +52,15 @@
 					return item.index;
 				}
 			});
-			console.log(puzzle);
-			console.log(currentWhiteIndex);
+			Swal.fire({
+				title: 'Game started!',
+				text: 'Good luck!',
+				icon: 'success',
+				showConfirmButton: false,
+				timer: 1000,
+				toast: true,
+				position: 'bottom',
+			});
 		}
 	};
 

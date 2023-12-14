@@ -10,7 +10,7 @@ Live demo [here](https://15puzzle.games.iamickdev.com)
 ## Stack
 
 - SvelteKIT
-- TailwindCSS (+Daisyui)
+- TailwindCSS (+daisyui)
 
 
 ## Contributor
