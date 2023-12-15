@@ -111,6 +111,17 @@
 					//check if puzzle is solved
 					if (puzzle.every((item, index) => item.value === index + 1)) {
 						setTimeout(() => {
+							fetch(encodeURI(`https://www.iamickdev.com/api/games/15puzzle?name=${playerName}&move=${$moveCount}&time=${$time}`), {
+								method: 'GET'
+							})
+								.then((res) => res.json())
+								.then((data) => {
+									console.log(data);
+								})
+								.catch((err) => {
+									console.log(err);
+								}
+								);
 							Swal.fire({
 								title: `Congratulations, ${playerName}!`,
 								html: `You solved the puzzle in <b>${$moveCount}</b> moves and <b>${$time}</b> seconds!`,

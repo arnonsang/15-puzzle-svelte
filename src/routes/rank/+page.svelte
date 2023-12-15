@@ -9,24 +9,7 @@
 	let playerName = 'Guest';
 
 	let sorter = 'time';
-	/*
-	[
-		{
-  "id": 1,
-  "created_at": "2023-12-15T11:51:48.335656+00:00",
-  "name": "NongNine",
-  "move": 305,
-  "time": 143
-},{
-  "id": 2,
-  "created_at": "2023-12-15T11:51:48.335656+00:00",
-  "name": "NongNine2",
-  "move": 305,
-  "time": 143
-}
-	]
-*/
-const howToPlay = () => {
+	const howToPlay = () => {
 		Swal.fire({
 			title: 'How to play?',
 			html: `Click on the tiles to move them to the empty space. Arrange the tiles in ascending order to win!`,
