@@ -4,8 +4,9 @@
 Live demo [here](https://15puzzle.games.iamickdev.com)
 
 ## To run this project
-- Install package using `npm i`
-- Run development `npm run dev`
+- Install package using `npm i` or `pnpm i`
+- Run development `npm run dev` or `pnpm run dev`
+- It's work with [Bun](https://bun.sh/) too!
 
 ## Stack
 
