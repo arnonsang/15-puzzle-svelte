@@ -117,3 +117,21 @@
 	</main>
 	<Footer />
 </div>
+
+<svelte:head>
+	<title>15 Puzzle Game | Made by ICKDEV</title>
+	<meta name="description" content="Leaderboard | 15 Puzzle Game | Made by ICKDEV" />
+	<meta property="og:title" content="Leaderboard | 15 Puzzle Game | Made by ICKDEV" />
+	<meta property="og:description" content="Leaderboard | 15 Puzzle Game | Made by ICKDEV" />
+	<meta property="og:image" content="https://i.gifer.com/2Vo1.gif" />
+	<meta property="og:url" content="https://15puzzle.games.iamickdev.com/rank" />
+	<meta name="twitter:title" content="Leaderboard | 15 Puzzle Game | Made by ICKDEV" />
+	<meta name="twitter:description" content="Leaderboard | 15 Puzzle Game | Made by ICKDEV" />
+	<meta name="twitter:image" content="https://i.gifer.com/2Vo1.gif" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:creator" content="@arnon_sng" />
+	<meta name="twitter:site" content="@arnon_sng" />
+	<meta name="twitter:domain" content="https://15puzzle.games.iamickdev.com/rank" />
+	<meta name="twitter:image:alt" content="Leaderboard | 15 Puzzle Game | Made by ICKDEV" />
+	<meta name="twitter:image:alt" content="Leaderboard | 15 Puzzle Game | Made by ICKDEV" />
+</svelte:head>
