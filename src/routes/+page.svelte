@@ -5,12 +5,16 @@
 	import Navbar from '../lib/components/Navbar.svelte';
 	import Footer from '../lib/components/Footer.svelte';
 	import { onMount } from 'svelte';
+	import { IconCrown, IconFlagFilled, IconPlayerPlay, IconZoomQuestion } from '@tabler/icons-svelte';
+	import { browser } from '$app/environment';
+	export let data;
 
 	//game variables
 	let moveCount = writable(0);
 	let time = writable(0);
 	let isStarted = false;
 	let puzzle = [];
+	let leaderboard = [];
 	let currentWhiteIndex = 15;
 	let playerName = 'Guest';
 
@@ -33,12 +37,13 @@
 				showCancelButton: true,
 				confirmButtonColor: '#4caf50',
 				cancelButtonColor: '#d33',
-				confirmButtonText: 'Yes, restart!',
+				confirmButtonText: 'Yes, give up!',
 				allowEnterKey: false,
 				allowEscapeKey: false,
 				allowOutsideClick: false
 			}).then((result) => {
 				if (result.isConfirmed) {
+					localStorage.clear();
 					window.location.reload();
 				}
 			});
@@ -60,6 +65,12 @@
 				toast: true,
 				position: 'bottom'
 			});
+		}
+	};
+
+	const savePlayerName = () => {
+		if (browser) {
+			localStorage.setItem('playerName', playerName);
 		}
 	};
 
@@ -122,6 +133,7 @@
 	};
 
 	onMount(() => {
+		leaderboard = data.data;
 		Swal.fire({
 			title: 'Hello, Who are you?',
 			html: `Enter your name to start the game`,
@@ -130,7 +142,7 @@
 				autocapitalize: 'off'
 			},
 			inputAutoFocus: true,
-			inputPlaceholder: 'Enter your name for the celebration!',
+			inputPlaceholder: 'Enter your name for the leaderboard celebration!',
 			showCancelButton: false,
 			confirmButtonText: 'Start!',
 			confirmButtonColor: '#4caf50',
@@ -139,27 +151,25 @@
 			allowOutsideClick: false,
 			preConfirm: (name) => {
 				if (name) {
-					playerName = name;
-					Swal.fire({
-						title: 'Welcome!',
-						html: `Hello <b>${name}</b>!`,
-						icon: 'success',
-						showConfirmButton: false,
-						timer: 1000,
-						toast: true,
-						position: 'top-end'
-					});
+					console.log(leaderboard);
+					const isNameExist = leaderboard.some((item) => item.name === name);
+					if (isNameExist) {
+						Swal.showValidationMessage(`Name already exist, please enter another name`);
+					} else {
+						playerName = name;
+						savePlayerName();
+						Swal.fire({
+							title: 'Welcome!',
+							html: `Hello <b>${name}</b>!`,
+							icon: 'success',
+							showConfirmButton: false,
+							timer: 1000,
+							toast: true,
+							position: 'top-end'
+						});
+					}
 				} else {
-					//Swal.showValidationMessage(`Please enter your name`);
-					Swal.fire({
-						title: 'Welcome!',
-						html: `Hello <b>Guest</b>!`,
-						icon: 'success',
-						showConfirmButton: false,
-						timer: 1000,
-						toast: true,
-						position: 'top-end'
-					});
+					Swal.showValidationMessage(`Please enter your name`);
 				}
 			}
 		});
@@ -201,10 +211,12 @@
 				on:click={startGame}
 				class={`my-2 mt-4 min-w-full btn  ${isStarted ? 'btn-warning' : 'btn-success'}`}
 			>
-				{isStarted ? 'Restart' : 'Start'}
+				{#if isStarted}<IconFlagFilled /> Give up!{:else}<IconPlayerPlay /> Start{/if}
 			</button>
-
-			<button on:click={howToPlay} class="my-2 min-w-full btn btn-info"> How to play? </button>
+			{#if !isStarted}
+			<a href="/rank" class="my-2 min-w-full btn btn-secondary"><IconCrown /> Leaderboard</a>
+			{/if}
+			<button on:click={howToPlay} class="my-2 min-w-full btn btn-info"><IconZoomQuestion /> How to play? </button>
 		</div>
 	</main>
 	<Footer />
