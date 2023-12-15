@@ -11,4 +11,5 @@ COPY . .
 
 EXPOSE 5173
 
+# Run the app
 CMD ["npm", "run", "dev"]
