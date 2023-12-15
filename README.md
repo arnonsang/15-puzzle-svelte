@@ -1,6 +1,6 @@
 
 
-# Svelte leaflet map area viewer!
+# Svelte 15 Puzzle Game!
 Live demo [here](https://15puzzle.games.iamickdev.com)
 
 ## To run this project
