@@ -4,15 +4,13 @@
     let darkMode = false;
     let animating = false;
     let themeButton;
-    // Check if the user has a preference for dark mode
 
     function toggleTheme() {
       if (!animating) {
         animating = true;
         darkMode = !darkMode;
         //change body data-theme
-        document.body.dataset.theme = darkMode ? 'dark' : 'light';
-        localStorage.setItem('theme', darkMode ? 'dark' : 'light');
+        document.body.dataset.theme = darkMode ? 'dracula' : 'light';
         //change button animation
         themeButton.animate(
           [

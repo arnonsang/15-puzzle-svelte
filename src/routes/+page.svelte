@@ -42,7 +42,6 @@
 					window.location.reload();
 				}
 			});
-			
 		} else {
 			puzzle = newPuzzle;
 			isStarted = true;
@@ -55,49 +54,14 @@
 				}
 			});
 			Swal.fire({
-				title: 'Game started!',
 				text: 'Good luck!',
-				icon: 'success',
 				showConfirmButton: false,
 				timer: 1000,
 				toast: true,
-				position: 'top-end',
+				position: 'bottom'
 			});
 		}
 	};
-
-	onMount(() => {
-		Swal.fire({
-			title: 'Hello, Who are you?',
-			html: `Enter your name to start the game`,
-			input: 'text',
-			inputAttributes: {
-				autocapitalize: 'off'
-			},
-			showCancelButton: false,
-			confirmButtonText: 'Start!',
-			confirmButtonColor: '#4caf50',
-			allowEnterKey: false,
-			allowEscapeKey: false,
-			allowOutsideClick: false,
-			preConfirm: (name) => {
-				if (name) {
-					playerName = name;
-					Swal.fire({
-						title: 'Welcome!',
-						html: `Hello <b>${name}</b>!`,
-						icon: 'success',
-						showConfirmButton: false,
-						timer: 1000,
-						toast: true,
-						position: 'top-end',
-					});
-				} else {
-					Swal.showValidationMessage(`Please enter your name`);
-				}
-			}
-		});
-	});
 
 	const howToPlay = () => {
 		Swal.fire({
@@ -116,7 +80,7 @@
 	};
 
 	//move tile, game logic, update moveCount
-	let moveTile = (index) => {
+	const moveTile = (index) => {
 		return () => {
 			if (isStarted) {
 				let whiteIndex = currentWhiteIndex;
@@ -156,10 +120,55 @@
 			}
 		};
 	};
+
+	onMount(() => {
+		Swal.fire({
+			title: 'Hello, Who are you?',
+			html: `Enter your name to start the game`,
+			input: 'text',
+			inputAttributes: {
+				autocapitalize: 'off'
+			},
+			inputAutoFocus: true,
+			inputPlaceholder: 'Enter your name for the celebration!',
+			showCancelButton: false,
+			confirmButtonText: 'Start!',
+			confirmButtonColor: '#4caf50',
+			allowEnterKey: false,
+			allowEscapeKey: false,
+			allowOutsideClick: false,
+			preConfirm: (name) => {
+				if (name) {
+					playerName = name;
+					Swal.fire({
+						title: 'Welcome!',
+						html: `Hello <b>${name}</b>!`,
+						icon: 'success',
+						showConfirmButton: false,
+						timer: 1000,
+						toast: true,
+						position: 'top-end'
+					});
+				} else {
+					//Swal.showValidationMessage(`Please enter your name`);
+					Swal.fire({
+						title: 'Welcome!',
+						html: `Hello <b>Guest</b>!`,
+						icon: 'success',
+						showConfirmButton: false,
+						timer: 1000,
+						toast: true,
+						position: 'top-end'
+					});
+				}
+			}
+		});
+	});
 </script>
 
-<div class="container min-h-screen min-w-full">
-	<Navbar {time} {moveCount} {isStarted} {playerName}/>
+<div class="min-h-screen w-screen">
+	<Navbar {time} {moveCount} {isStarted} {playerName} />
+
 	<main
 		class="container min-h-[90vh] max-w-md mx-auto flex flex-col justify-center items-center text-center pt-4 pb-12"
 	>
@@ -167,14 +176,17 @@
 			<h1 class="text-4xl font-bold">15 Puzzle Game</h1>
 			{#if isStarted}
 				<p class="text-sm mt-2">Move the tiles to arrange them in ascending order</p>
-				{:else}
-				<p class="text-xl">Made by <a href="https://www.iamickdev.com" class="link-primary hover:link-hover">Arnon Sang-ngern</a></p>
-				<img src="https://i.gifer.com/PYh.gif" alt="nyan cat running" class="h-72">
+			{:else}
+				<p class="text-xl">
+					Made by <a href="https://www.iamickdev.com" class="link-primary hover:link-hover"
+						>Arnon Sang-ngern</a
+					>
+				</p>
+				<img src="https://i.gifer.com/PYh.gif" alt="nyan cat running" class="h-72" />
 			{/if}
-			
 		</div>
 
-		<div class="grid grid-cols-4 min-w-full" id="board-section">
+		<div class="grid grid-cols-4 min-w-full px-10 md:px-4" id="board-section">
 			{#if isStarted}
 				{#key currentWhiteIndex}
 					{#each newPuzzle as { value, index }}
@@ -184,10 +196,10 @@
 			{/if}
 		</div>
 
-		<div class="min-w-full" id="control-section">
+		<div class="min-w-full px-10 md:px-4" id="control-section">
 			<button
 				on:click={startGame}
-				class={`my-2 min-w-full btn  ${isStarted ? 'btn-warning' : 'btn-success'}`}
+				class={`my-2 mt-4 min-w-full btn  ${isStarted ? 'btn-warning' : 'btn-success'}`}
 			>
 				{isStarted ? 'Restart' : 'Start'}
 			</button>
@@ -199,19 +211,19 @@
 </div>
 
 <svelte:head>
-    <title>15 Puzzle Game | Made by ICKDEV</title>
-    <meta name="description" content="15 Puzzle Game | Made by ICKDEV" />
-    <meta property="og:title" content="15 Puzzle Game | Made by ICKDEV" />
-    <meta property="og:description" content="15 Puzzle Game | Made by ICKDEV" />
-    <meta property="og:image" content="https://i.gifer.com/2Vo1.gif" />
-    <meta property="og:url" content="https://15puzzle.games.iamickdev.com/" />
-    <meta name="twitter:title" content="15 Puzzle Game | Made by ICKDEV" />
-    <meta name="twitter:description" content="15 Puzzle Game | Made by ICKDEV" />
-    <meta name="twitter:image" content="https://i.gifer.com/2Vo1.gif" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:creator" content="@arnon_sng" />
-    <meta name="twitter:site" content="@arnon_sng" />
-    <meta name="twitter:domain" content="https://15puzzle.games.iamickdev.com/" />
-    <meta name="twitter:image:alt" content="15 Puzzle Game | Made by ICKDEV" />
-    <meta name="twitter:image:alt" content="15 Puzzle Game | Made by ICKDEV" />
+	<title>15 Puzzle Game | Made by ICKDEV</title>
+	<meta name="description" content="15 Puzzle Game | Made by ICKDEV" />
+	<meta property="og:title" content="15 Puzzle Game | Made by ICKDEV" />
+	<meta property="og:description" content="15 Puzzle Game | Made by ICKDEV" />
+	<meta property="og:image" content="https://i.gifer.com/2Vo1.gif" />
+	<meta property="og:url" content="https://15puzzle.games.iamickdev.com/" />
+	<meta name="twitter:title" content="15 Puzzle Game | Made by ICKDEV" />
+	<meta name="twitter:description" content="15 Puzzle Game | Made by ICKDEV" />
+	<meta name="twitter:image" content="https://i.gifer.com/2Vo1.gif" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:creator" content="@arnon_sng" />
+	<meta name="twitter:site" content="@arnon_sng" />
+	<meta name="twitter:domain" content="https://15puzzle.games.iamickdev.com/" />
+	<meta name="twitter:image:alt" content="15 Puzzle Game | Made by ICKDEV" />
+	<meta name="twitter:image:alt" content="15 Puzzle Game | Made by ICKDEV" />
 </svelte:head>

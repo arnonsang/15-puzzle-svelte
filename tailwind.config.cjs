@@ -11,7 +11,7 @@ const config = {
 	},
 
 	daisyui: {
-		themes: ["light", "dark", "cupcake"],
+		themes: ["light", "dracula"],
 	  },
 
 	plugins: [forms, typography, daisyui]
