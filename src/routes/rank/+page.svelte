@@ -95,7 +95,7 @@
 									<th>{i + 1}{#if i == 0 }st{:else if i == 1}nd{:else if i == 2}rd{:else}th{/if}</th>
 									<td>{player.name}</td>
 									<td>{player.move}</td>
-									<td>{player.time}</td>
+									<td>{player.time}s</td>
 									<td>{new Date(player.created_at).toLocaleDateString() + " " +new Date(player.created_at).toLocaleTimeString()}</td>
 								</tr>
 							{/each}
