@@ -119,7 +119,7 @@
 </div>
 
 <svelte:head>
-	<title>15 Puzzle Game | Made by ICKDEV</title>
+	<title>Leaderboard | 15 Puzzle Game | Made by ICKDEV</title>
 	<meta name="description" content="Leaderboard | 15 Puzzle Game | Made by ICKDEV" />
 	<meta property="og:title" content="Leaderboard | 15 Puzzle Game | Made by ICKDEV" />
 	<meta property="og:description" content="Leaderboard | 15 Puzzle Game | Made by ICKDEV" />
