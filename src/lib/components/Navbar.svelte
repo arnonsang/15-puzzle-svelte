@@ -4,6 +4,8 @@
 	export let isStarted = false;
 	export let playerName;
 
+	import { username } from '../../store/username';
+
 	import { IconClockHour12 } from '@tabler/icons-svelte';
 	import ThemeSwitcher from './ThemeSwitcher.svelte';
 
@@ -40,7 +42,7 @@
 			<a href={isStarted ? "" : "/"} class={'btn btn-base-200 text-2xl font-bold stroke-black ' + moveColor()}
 				>{isStarted
 					? `${$moveCount > 1 ? $moveCount + ' moves' : $moveCount + ' move'}`
-					: `Welcome, ${playerName}!`}</a
+					: `Welcome, ${$username}!`}</a
 			>
 		{/key}
 	</div>

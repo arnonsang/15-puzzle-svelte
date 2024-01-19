@@ -7,6 +7,7 @@
 	import { onMount } from 'svelte';
 	import { IconCrown, IconFlagFilled, IconPlayerPlay, IconZoomQuestion } from '@tabler/icons-svelte';
 	import { browser } from '$app/environment';
+	import { username } from '../store/username'
 	export let data;
 
 	//game variables
@@ -145,6 +146,7 @@
 
 	onMount(() => {
 		leaderboard = data.data;
+		if($username == 'World'){
 		Swal.fire({
 			title: 'Hello, Who are you?',
 			html: `Enter your name to start the game`,
@@ -161,12 +163,14 @@
 			allowEscapeKey: false,
 			allowOutsideClick: false,
 			preConfirm: (name) => {
+				
 				if (name) {
 					console.log(leaderboard);
 					const isNameExist = leaderboard.some((item) => item.name === name);
 					if (isNameExist) {
 						Swal.showValidationMessage(`Name already exist, please enter another name`);
 					} else {
+						username.set(name);
 						playerName = name;
 						savePlayerName();
 						Swal.fire({
@@ -184,6 +188,7 @@
 				}
 			}
 		});
+	}
 	});
 </script>
 
